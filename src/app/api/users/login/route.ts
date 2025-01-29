@@ -3,6 +3,7 @@ import User from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 import { sendEmail } from "@/helpers/mailer";
 import bcryptjs from "bcryptjs";
+import jwt from "jsonwebtoken"
 connectDb();
 
 export default async function POST(req:NextRequest){
@@ -19,6 +20,13 @@ export default async function POST(req:NextRequest){
         if(!validPassword){
             return NextResponse.json({status:"error",message:"Invalid password"},{status:401})
         }
+        // If password is valid then we will generate a token
+        const tokenData = {
+            id:user._id,
+            username:user.username,
+            email:user.email,
+        }
+        
     } catch (error:any) {
         return NextResponse.json({status:"error",message:error.message},{status:500})
     }
