@@ -5,13 +5,19 @@ export const sendEmail = async ({email,emailType,userId}:any) => {
     try {
       const hashedToken = await bcryptjs.hash(userId.toString(),10)
       if (emailType === "VERIFY") {
-        await User.findByIdAndUpdate(userId,
-          {verifyToken: hashedToken,verifyTokenExpire: Date.now() + 3600000}
-        )
+        await User.findByIdAndUpdate(userId, {
+          $set: {
+            verifyToken: hashedToken,
+            verifyTokenExpiry: Date.now() + 3600000 // ← Match schema name
+          }
+        });
       } else if(emailType === "RESET") {
-        await User.findByIdAndUpdate(userId,
-          {forgotPassowrdToken: hashedToken,forgotPasswordTokenExpiry: Date.now() + 3600000}
-        )
+        await User.findByIdAndUpdate(userId, {
+          $set: {
+            forgotPasswordToken: hashedToken, // ← Corrected spelling
+            forgotPasswordTokenExpiry: Date.now() + 3600000
+          }
+        });
 
       }
         // Looking to send emails in production? Check out our Email API/SMTP product!

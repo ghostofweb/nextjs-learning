@@ -8,7 +8,7 @@ export async function POST(req:NextRequest){
         const reqBody = await req.json();
         const {token} = reqBody;
         console.log(token);
-        const user = await User.findOne({verifyToken:token,verifyTokenExpire:{$gt:Date.now()}})
+        const user = await User.findOne({verifyToken:token,verifyTokenExpiry:{$gt:Date.now()}})
         if (!user) {
             return NextResponse.json({status:"error",message:"Invalid or expired token"},{status:400})
         }

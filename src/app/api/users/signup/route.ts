@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
     await sendEmail({
       email,
       emailType: "VERIFY",
-      userId: savedUser._id.toString(), // Convert ObjectId to string
+      userId: savedUser._id, // Convert ObjectId to string
     });
 
     return NextResponse.json(
