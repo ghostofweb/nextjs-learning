@@ -15,7 +15,7 @@ export async function POST(req:NextRequest){
         console.log(user);
         user.isVerified = true; // Update user's isVerified field
         user.verifyToken = undefined; // Remove token from user document after verification is complete 
-        user.verifyTokenExpire = undefined; // Remove token expiry date from user document after verification is complete
+        user.verifyTokenExpire = undefined; // Remove token expiry date from user document after verification is complete`
         
         await user.save(); // Save updated user document, also await to ensure save completes
         return NextResponse.json({status:"success",message:"Email verified successfully"},{status:200})
