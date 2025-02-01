@@ -22,7 +22,7 @@ export default function VerifyEmailPage() {
 
   const verifyUserEmail = async (token: string) => {
     try {
-      const response = await axios.post("api/user/verifyemail", { token });
+      const response = await axios.post("api/users/verifyemail", { token });
       
       // Handle success
       if (response.data.status === 'success') {
@@ -35,7 +35,6 @@ export default function VerifyEmailPage() {
     } catch (error: any) {
       setError(true);
       setStatusMessage("An error occurred while verifying the email.");
-      console.log(error.response?.data);
     }
   };
 
