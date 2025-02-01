@@ -1,11 +1,8 @@
 import React from 'react'
 
-const page = () => {
+export default function verifyemail () {
   return (
-    <div>
-      Verify Email
-    </div>
+    <div>verifyEmail</div>
   )
 }
 
-export default page
