@@ -99,12 +99,14 @@ export default function Page() {
 
         {/* Signup Button */}
         <button
-          type="submit"
-          disabled={buttonDisable || loading}
-          className="w-full p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors disabled:opacity-50"
-        >
-          {loading ? 'Processing...' : 'Sign Up'}
-        </button>
+  type="submit"
+  disabled={buttonDisable || loading}
+  className={`w-full p-2 rounded-lg transition-colors ${loading ? 'bg-blue-500 text-white' : 'bg-gray-300 text-gray-700'} ${buttonDisable || loading ? 'cursor-not-allowed opacity-50' : 'hover:bg-blue-600'}`}
+>
+  {loading ? 'Processing...' : 'Sign Up'}
+</button>
+
+
       </form>
     </div>
   );
