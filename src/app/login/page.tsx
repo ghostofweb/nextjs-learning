@@ -1,27 +1,14 @@
-import React, { useState } from 'react'
-import axios from 'axios'
+import React, { useState } from 'react';
+import axios from 'axios';
+import toast from 'react-hot-toast';
+import { useRouter } from 'next/router';
 
-export default function page (){
+export default function Page() {  // Capitalized component name (Next.js best practice)
 
-  const [user,setUser] = useState({
-    email:"",
-    password:"",
-    username:"",
-  })
-
-  const [buttonDisable,setButtonDisable] = useState(false)
-  const [loading,setLoading] = useState(true)
-
-  const onSignup = async ()=>{
-    try {
-      
-    } catch (error) {
-      console.log("Signup Failed")
-    }
-  }
-  return(
+  return (
     <div>
-    hello world
+      <h1>Hello World</h1>
+    
     </div>
-  )
+  );
 }
