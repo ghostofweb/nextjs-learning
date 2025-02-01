@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
             email: user.email,
         };
 
-        // Generate token with expiration
+        // Generate token with expiration`
         const token = jwt.sign(tokenData, tokenSecret,
             {expiresIn: "1d"}
         );

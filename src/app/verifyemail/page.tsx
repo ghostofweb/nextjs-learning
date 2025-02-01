@@ -9,6 +9,7 @@ export default function VerifyEmailPage() {
   const [token, setToken] = useState("");
   const [verified, setVerified] = useState(false);
   const [error, setError] = useState(false);
+  const [statusMessage, setStatusMessage] = useState("");
 
   // Fetch token directly from query params
   useEffect(() => {
@@ -21,29 +22,48 @@ export default function VerifyEmailPage() {
 
   const verifyUserEmail = async (token: string) => {
     try {
-      await axios.post("api/user/verifyemail", { token });
-      setVerified(true);
+      const response = await axios.post("api/user/verifyemail", { token });
+      
+      // Handle success
+      if (response.data.status === 'success') {
+        setVerified(true);
+        setStatusMessage("Your email has been successfully verified!");
+      } else {
+        setError(true);
+        setStatusMessage("Verification failed, please try again.");
+      }
     } catch (error: any) {
       setError(true);
-      console.log(error.response.data);
+      setStatusMessage("An error occurred while verifying the email.");
+      console.log(error.response?.data);
     }
   };
 
   return (
     <div className='flex flex-col items-center justify-center min-h-screen py-2'>
-      <h1 className='text-4xl'>Verify Email</h1>
-      <h2 className='p-4 bg-green'>
-        {token ? `${token}` : "no token"}
+      <h1 className='text-4xl mb-4'>Verify Email</h1>
+      <h2 className='p-4 mb-4 bg-green'>
+        {token ? `Token: ${token}` : "No token found"}
       </h2>
-      {verified && (
-        <div>
-          Verified
-          <Link href="/login">Go to Login</Link>
+
+      {statusMessage && (
+        <div className={`mb-4 ${verified ? 'text-green-600' : 'text-red-600'}`}>
+          {statusMessage}
         </div>
       )}
-      {error && (
+
+      {verified && (
         <div>
-          <h2>Error occurred during verification</h2>
+          Email Verified!
+          <Link href="/login" className='text-blue-500'>
+            Go to Login
+          </Link>
+        </div>
+      )}
+
+      {error && (
+        <div className='text-red-600'>
+          <h2>Error occurred during verification.</h2>
         </div>
       )}
     </div>
